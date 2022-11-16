@@ -1,13 +1,7 @@
 import "./globals.css"
 
 import { IBM_Plex_Sans } from "@next/font/google"
-import MenuButton from "../components/layout/MenuButton"
-import {
-  ROUTE_ADD_EVENT,
-  ROUTE_FULL,
-  ROUTE_SMALL_OVERFLOW,
-  ROUTE_SMALL_STANDARD,
-} from "../lib/routes"
+import NavigationMenu from "../components/layout/NavigationMenu"
 
 const font = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -25,19 +19,8 @@ export default function Root({ children }: { children: React.ReactNode }) {
         </h1>
         <main className="container mx-auto pt-4">
           <div className="mx-2 md:mx-10">
-            <div className="mb-10 flex justify-between">
-              <nav className="flex flex-col gap-4 md:flex-row">
-                <MenuButton href={ROUTE_SMALL_STANDARD}>
-                  Small standard calendar
-                </MenuButton>
-                <MenuButton href={ROUTE_SMALL_OVERFLOW}>
-                  Small overflow calendar
-                </MenuButton>
-                <MenuButton href={ROUTE_FULL}>Full calendar</MenuButton>
-              </nav>
-              <MenuButton href={ROUTE_ADD_EVENT}>Add event</MenuButton>
-            </div>
-            {children}
+            <NavigationMenu />
+            <main>{children}</main>
           </div>
         </main>
       </body>
