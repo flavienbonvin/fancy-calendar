@@ -67,6 +67,7 @@ const Calendar = () => {
             className={clsx(
               "mx-auto flex h-8 w-8 items-center justify-center rounded-full",
               isToday(day) && "text-orange-500",
+              !isSameDay(day, selectedDay) && "hover:bg-gray-100",
               isSameDay(day, selectedDay) && "bg-sky-700 font-bold text-white",
               index === 0 && colStartClasses[getDay(day)]
             )}
