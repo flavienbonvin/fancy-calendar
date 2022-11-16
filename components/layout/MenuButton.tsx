@@ -2,7 +2,7 @@
 
 import clsx from "clsx"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 interface Props {
   href: string
@@ -10,15 +10,14 @@ interface Props {
 }
 
 const MenuButton = ({ href, children }: Props) => {
-  const searchParams = useSearchParams()
-  const type = searchParams.get("type")
+  const path = usePathname()
 
   return (
     <Link
       href={href}
       className={clsx(
         "flex h-12 items-center rounded-md border px-4 py-2",
-        type && href.includes(type) && "border-blue-600 bg-blue-600 text-white"
+        path === href && "border-blue-600 bg-blue-600 text-white"
       )}>
       {children}
     </Link>

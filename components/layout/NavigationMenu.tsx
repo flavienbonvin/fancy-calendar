@@ -10,15 +10,15 @@ const NavigationMenu = () => {
   return (
     <header className="mb-10 flex justify-between">
       <nav className="flex flex-col gap-4 md:flex-row">
-        <MenuButton href={`?type=${ROUTE_SMALL_STANDARD}`}>
+        <MenuButton href={ROUTE_SMALL_STANDARD}>
           Small standard calendar
         </MenuButton>
-        <MenuButton href={`?type=${ROUTE_SMALL_OVERFLOW}`}>
+        <MenuButton href={ROUTE_SMALL_OVERFLOW}>
           Small overflow calendar
         </MenuButton>
-        <MenuButton href={`?type=${ROUTE_FULL}`}>Full calendar</MenuButton>
+        <MenuButton href={ROUTE_FULL}>Full calendar</MenuButton>
       </nav>
-      <MenuButton href={`?type=${ROUTE_ADD_EVENT}`}>Add event</MenuButton>
+      <MenuButton href={ROUTE_ADD_EVENT}>Add event</MenuButton>
     </header>
   )
 }
