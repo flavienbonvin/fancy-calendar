@@ -17,12 +17,12 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <h1 className="flex h-14 items-center justify-center px-10 text-3xl font-bold shadow-sm">
           Fancy calendars
         </h1>
-        <main className="container mx-auto pt-4">
+        <div className="container mx-auto pt-4">
           <div className="mx-2 md:mx-10">
             <NavigationMenu />
             <main>{children}</main>
           </div>
-        </main>
+        </div>
       </body>
     </html>
   )
