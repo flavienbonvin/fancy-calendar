@@ -16,7 +16,7 @@ const MenuButton = ({ href, children }: Props) => {
     <Link
       href={href}
       className={clsx(
-        "rounded-md border px-4 py-2",
+        "flex h-12 items-center rounded-md border px-4 py-2",
         path === href && "border-blue-600 bg-blue-600 text-white"
       )}>
       {children}

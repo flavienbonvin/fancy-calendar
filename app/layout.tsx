@@ -24,19 +24,21 @@ export default function Root({ children }: { children: React.ReactNode }) {
           Fancy calendars
         </h1>
         <main className="container mx-auto pt-4">
-          <div className="mb-10 flex justify-between">
-            <nav className="flex gap-4">
-              <MenuButton href={ROUTE_SMALL_STANDARD}>
-                Small standard calendar
-              </MenuButton>
-              <MenuButton href={ROUTE_SMALL_OVERFLOW}>
-                Small overflow calendar
-              </MenuButton>
-              <MenuButton href={ROUTE_FULL}>Full calendar</MenuButton>
-            </nav>
-            <MenuButton href={ROUTE_ADD_EVENT}>Add event</MenuButton>
+          <div className="mx-2 md:mx-10">
+            <div className="mb-10 flex justify-between">
+              <nav className="flex flex-col gap-4 md:flex-row">
+                <MenuButton href={ROUTE_SMALL_STANDARD}>
+                  Small standard calendar
+                </MenuButton>
+                <MenuButton href={ROUTE_SMALL_OVERFLOW}>
+                  Small overflow calendar
+                </MenuButton>
+                <MenuButton href={ROUTE_FULL}>Full calendar</MenuButton>
+              </nav>
+              <MenuButton href={ROUTE_ADD_EVENT}>Add event</MenuButton>
+            </div>
+            {children}
           </div>
-          {children}
         </main>
       </body>
     </html>
