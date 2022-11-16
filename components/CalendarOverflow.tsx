@@ -45,9 +45,11 @@ const CalendarOverflow = () => {
         <p className="font-bold">{format(selectedMonth, "MMMM yyyy")}</p>
         <div className="flex gap-4">
           <button onClick={removeMonth}>
-            <ChevronLeftIcon className="h-5 w-5" />
+            <span className="sr-only">Previous month</span>
+            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
           </button>
           <button onClick={addMonth}>
+            <span className="sr-only">Next month</span>
             <ChevronRightIcon className="h-5 w-5" />
           </button>
         </div>
@@ -68,7 +70,7 @@ const CalendarOverflow = () => {
             className={clsx(
               "mx-auto flex h-8 w-8 items-center justify-center rounded-full",
               isToday(day) && "text-orange-500",
-              isSameDay(day, selectedDay) && "bg-sky-600 font-bold text-white",
+              isSameDay(day, selectedDay) && "bg-sky-700 font-bold text-white",
               !isSameMonth(day, selectedMonth) && "text-gray-400",
               index === 0 && colStartClasses[getDay(day)]
             )}
