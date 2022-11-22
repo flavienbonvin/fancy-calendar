@@ -72,8 +72,7 @@ const CalendarOverflow = () => {
               isToday(day) && "text-orange-500",
               !isSameDay(day, selectedDay) && "hover:bg-gray-100",
               isSameDay(day, selectedDay) && "bg-sky-700 font-bold text-white",
-              !isSameMonth(day, selectedMonth) && "text-gray-400",
-              index === 0 && colStartClasses[getDay(day)]
+              !isSameMonth(day, selectedMonth) && "text-gray-400"
             )}
             onClick={() => {
               setSelectedDay(day)
@@ -85,15 +84,5 @@ const CalendarOverflow = () => {
     </div>
   )
 }
-
-let colStartClasses = [
-  "",
-  "col-start-2",
-  "col-start-3",
-  "col-start-4",
-  "col-start-5",
-  "col-start-6",
-  "col-start-7",
-]
 
 export default CalendarOverflow
