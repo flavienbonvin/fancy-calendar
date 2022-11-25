@@ -3,20 +3,34 @@
 import clsx from "clsx"
 import {
   add,
+  addDays,
+  differenceInDays,
   eachDayOfInterval,
   endOfMonth,
   endOfWeek,
   format,
+  isSameDay,
   isSameMonth,
   isToday,
+  lastDayOfWeek,
+  parseISO,
   startOfMonth,
   startOfToday,
   startOfWeek,
 } from "date-fns"
 import { useState } from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
+import Event from "../types/Event"
 
-const FullCalendar = () => {
+interface Props {
+  selectedDay: Date
+  setSelectedDay: (newDay: Date) => void
+  events?: Event[]
+}
+
+const FullCalendar = ({ events, selectedDay, setSelectedDay }: Props) => {
+  let tempEvents = events
+
   const today = startOfToday()
   const [selectedMonth, setSelectedMonth] = useState<Date>(startOfMonth(today))
 
@@ -63,12 +77,12 @@ const FullCalendar = () => {
       <div className="gray mt-2 grid grid-cols-7 text-sm">
         {days.map((day, index) => (
           <div
+            key={day.toISOString()}
             className={clsx(
-              "mt-[-1px] ml-[-1px] h-20 border p-2",
+              "relative mt-[-1px] ml-[-1px] min-h-[80px] border p-2",
               !isSameMonth(day, selectedMonth) &&
                 "border-gray-100 text-gray-400"
-            )}
-            key={index}>
+            )}>
             <time
               dateTime={format(day, "yyyy-MM-dd")}
               className={clsx(
@@ -77,11 +91,59 @@ const FullCalendar = () => {
               )}>
               {format(day, "d")}
             </time>
+            {tempEvents &&
+              tempEvents.map((item) => {
+                if (isSameDay(parseISO(item.startTime), day)) {
+                  const start = parseISO(item.startTime)
+                  const end = parseISO(item.endTime)
+                  let diff = differenceInDays(end, start)
+
+                  // new events needs to be created start of next week of overflow
+                  const remainingDaysInWeek = differenceInDays(
+                    endOfWeek(day),
+                    day
+                  )
+                  if (diff > remainingDaysInWeek) {
+                    const newStartTime = addDays(lastDayOfWeek(day), 1)
+                    const event = Object.assign({}, item)
+                    event.startTime = newStartTime.toISOString()
+                    if (
+                      !tempEvents?.some(
+                        (item) => JSON.stringify(item) === JSON.stringify(event)
+                      )
+                    ) {
+                      tempEvents?.push(event)
+                    }
+                    diff = diff - remainingDaysInWeek
+                  }
+
+                  return (
+                    <div
+                      className={clsx(
+                        colWidthClasses[diff],
+                        "absolute z-10 mb-1 truncate rounded bg-blue-500 px-2 text-white",
+                        !isSameMonth(start, selectedMonth) && "bg-blue-200"
+                      )}>
+                      {item.title}
+                    </div>
+                  )
+                }
+              })}
           </div>
         ))}
       </div>
     </div>
   )
 }
+
+let colWidthClasses = [
+  "w-[14%]",
+  "w-[28%]",
+  "w-[42%]",
+  "w-[56%]",
+  "w-[70%]",
+  "w-[84%]",
+  "w-[100%]",
+]
 
 export default FullCalendar

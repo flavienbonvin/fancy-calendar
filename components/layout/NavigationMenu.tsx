@@ -2,7 +2,6 @@ import {
   ROUTE_SMALL_STANDARD,
   ROUTE_SMALL_OVERFLOW,
   ROUTE_FULL,
-  ROUTE_ADD_EVENT,
 } from "../../lib/routes"
 import MenuButton from "./MenuButton"
 
@@ -18,7 +17,6 @@ const NavigationMenu = () => {
         </MenuButton>
         <MenuButton href={ROUTE_FULL}>Full calendar</MenuButton>
       </nav>
-      <MenuButton href={ROUTE_ADD_EVENT}>Add event</MenuButton>
     </header>
   )
 }
