@@ -9,16 +9,23 @@ import {
   getDay,
   isSameDay,
   isToday,
+  parseISO,
   startOfMonth,
-  startOfToday,
 } from "date-fns"
 import { useState } from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
+import Event from "../types/Event"
 
-const Calendar = () => {
-  const today = startOfToday()
-  const [selectedDay, setSelectedDay] = useState(today)
-  const [selectedMonth, setSelectedMonth] = useState<Date>(startOfMonth(today))
+interface Props {
+  selectedDay: Date
+  setSelectedDay: (newDay: Date) => void
+  events?: Event[]
+}
+
+const Calendar = ({ selectedDay, setSelectedDay, events }: Props) => {
+  const [selectedMonth, setSelectedMonth] = useState<Date>(
+    startOfMonth(selectedDay)
+  )
 
   const addMonth = () => {
     const next = add(selectedMonth, { months: 1 })
@@ -62,20 +69,30 @@ const Calendar = () => {
       </div>
       <div className="mt-4 grid grid-cols-7 gap-4 text-sm">
         {days.map((day, index) => (
-          <button
-            key={day.toISOString()}
-            className={clsx(
-              "mx-auto flex h-8 w-8 items-center justify-center rounded-full",
-              isToday(day) && "text-orange-500",
-              !isSameDay(day, selectedDay) && "hover:bg-gray-100",
-              isSameDay(day, selectedDay) && "bg-sky-700 font-bold text-white",
-              index === 0 && colStartClasses[getDay(day)]
+          <div key={day.toISOString()}>
+            <button
+              className={clsx(
+                "mx-auto flex h-8 w-8 flex-col items-center justify-center rounded-full",
+                isToday(day) && "text-orange-500",
+                !isSameDay(day, selectedDay) && "hover:bg-gray-100",
+                isSameDay(day, selectedDay) &&
+                  "bg-sky-700 font-bold text-white",
+                index === 0 && colStartClasses[getDay(day)]
+              )}
+              onClick={() => {
+                setSelectedDay(day)
+              }}>
+              <time dateTime={format(day, "yyyy-MM-dd")}>
+                {format(day, "d")}
+              </time>
+            </button>
+            {events &&
+            events?.some((item) => isSameDay(parseISO(item.startTime), day)) ? (
+              <div className="mx-auto mt-1 h-1 w-1 rounded-full bg-blue-500" />
+            ) : (
+              <div className="mx-auto mt-1 h-1 w-1 rounded-full bg-transparent" />
             )}
-            onClick={() => {
-              setSelectedDay(day)
-            }}>
-            {format(day, "d")}
-          </button>
+          </div>
         ))}
       </div>
     </div>

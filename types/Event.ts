@@ -1,6 +1,6 @@
 type Event = {
-  startTime: Date
-  endTime: Date
+  startTime: string
+  endTime: string
   title: string
   participants: string[]
 }
