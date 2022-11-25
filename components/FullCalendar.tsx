@@ -119,6 +119,7 @@ const FullCalendar = ({ events, selectedDay, setSelectedDay }: Props) => {
 
                   return (
                     <div
+                      key={item.startTime}
                       className={clsx(
                         colWidthClasses[diff],
                         "absolute z-10 mb-1 truncate rounded bg-blue-500 px-2 text-white",
